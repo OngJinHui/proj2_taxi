@@ -35,6 +35,7 @@ const CountNearby = (props) => {
             <ul>
                 {closeToUserPoints.map((item, index) => <li key={index}>{item.latitude}, {item.longitude}</li>)}
             </ul>
+            <h2>{closeToUserPoints.length} available taxis in the vicinity</h2>
         </div> 
     );
 };
