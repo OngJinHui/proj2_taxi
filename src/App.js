@@ -27,7 +27,6 @@ function App() {
   return (
     <div className="App">
       <h1>Taxi Availability App</h1>
-      <button onClick = {apiGet}>Count of nearby Taxis</button>
       <CountNearby latLon = {coordPairs} />
     </div>
   );

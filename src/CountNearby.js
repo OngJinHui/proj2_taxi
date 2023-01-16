@@ -3,17 +3,28 @@ import { useState } from "react";
 
 const CountNearby = (props) => {
 
-    const [closeToUserPoints, setCloseToUserPoints] = useState({});
+    const [closeToUserPoints, setCloseToUserPoints] = useState([]);
 
     const handlerCurrentCoord = (latitude, longitude) => {
+
+        let keyCounter = 1;
+
+        let keyNearbyLat = 'nearbyLat' + keyCounter.toString();
+        let keyNearbyLon = 'nearbyLon' + keyCounter.toString();
+
+        const placeholderSetOfPoints = [];
 
         props.latLon.forEach(individual_point => {
             if ((Math.abs(individual_point.Latitude - latitude) < 0.01) && 
                 (Math.abs(individual_point.Longitude - longitude) < 0.01)) {
-                    const placeholderSetOfPoints = {...closeToUserPoints}
-                    placeholderSetOfPoints.append({nearbyLatitude: individual_point.Latitude, 
-                                                   nearbyLongitude: individual_point.Longitude});
-                    setCloseToUserPoints(placeholderSetOfPoints)
+                    
+                    // push the coordinates into the arr
+                    placeholderSetOfPoints.push({[keyNearbyLat]: individual_point.Latitude, 
+                                                 [keyNearbyLon]: individual_point.Longitude});
+
+                    setCloseToUserPoints(placeholderSetOfPoints);
+
+                    keyCounter = keyCounter + 1;
             }
         });
 
@@ -22,9 +33,11 @@ const CountNearby = (props) => {
     return (
         <div>
             <CurCoord onCurrentCoord = {handlerCurrentCoord} />
-            <p>{closeToUserPoints[0]}</p>
-        </div>
-        
+            <h2>List of nearest available taxis' coordinates</h2>
+            <ul>
+                {closeToUserPoints.map((item) => <li>{item.keyNearbyLat}, {item.keyNearbyLon}</li>)};
+            </ul>
+        </div> 
     );
 };
 
