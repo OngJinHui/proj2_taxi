@@ -14,7 +14,7 @@ const CountNearby = (props) => {
             if ((Math.abs(individual_point.Latitude - latitude) < 0.01) && 
                 (Math.abs(individual_point.Longitude - longitude) < 0.01)) {
                     close_to_user_points.push(individual_point);
-                    // console.log(close_to_user_points);
+                    console.log(close_to_user_points);
             }
         }
 

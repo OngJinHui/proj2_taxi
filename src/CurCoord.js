@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const CurCoord = (props) => {
   const [lat, setLat] = useState(null);
@@ -14,12 +14,16 @@ const CurCoord = (props) => {
         setStatus(null);
         setLat(position.coords.latitude);
         setLng(position.coords.longitude);
-        props.onCurrentCoord(lat, lng);
       }, () => {
         setStatus('Unable to retrieve your location');
       });
+      props.onCurrentCoord(lat, lng);
     }
   }
+
+  useEffect(() => {
+    getLocation();
+  }, [lat, lng])
 
   return (
     <div className="App">
