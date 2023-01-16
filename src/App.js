@@ -13,15 +13,8 @@ function App() {
   const apiGet = async () => {
     try {
       const response = await ConnAPI.get("/Taxi-Availability");
-
+      setCoordPairs(response.data.value);
       // console.log(response.data.value);
-      do {
-        setCoordPairs(response.data.value);
-        console.log('updating state');
-      }
-      while (coordPairs === []);
-      
-      console.log(coordPairs);
     } catch (error) {
       console.log(error.message);
     }
@@ -43,16 +36,15 @@ function App() {
 
   // before the return,
   // use the useEffect hook to run apiGet when the application starts
-  // useEffect(() => {
-  //   apiGet();
-  // }, []);
+  useEffect(() => {
+    apiGet();
+  }, []);
 
   return (
     <div className="App">
       <h1>Taxi Availability App</h1>
       <button onClick = {apiGet}>Count of nearby Taxis</button>
-      <CountNearby />
-      {/* <CountNearby latLon = {response.data.value} /> */}
+      <CountNearby latLon = {coordPairs} />
       {/* conditional rendering */}
       {/* {products && <Table list = {products} />}
       <AddForm handlerAddItem = {apiPost} /> */}
