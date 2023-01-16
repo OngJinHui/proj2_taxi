@@ -1,10 +1,11 @@
 import CurCoord from './CurCoord';
+import { useState } from "react";
 
 const CountNearby = (props) => {
 
     console.log(props.latLon);
 
-    let close_to_user_points = [];
+    const [closeToUserPoints, setCloseToUserPoints] = useState([]);
     
     const handlerCurrentCoord = (latitude, longitude) => {
 
@@ -13,8 +14,11 @@ const CountNearby = (props) => {
         for (let individual_point in props.latLon) {
             if ((Math.abs(individual_point.Latitude - latitude) < 0.01) && 
                 (Math.abs(individual_point.Longitude - longitude) < 0.01)) {
-                    close_to_user_points.push(individual_point);
-                    console.log(close_to_user_points);
+                    const placeholderPoint = {...closeToUserPoints, 
+                            nearbyLatitude: individual_point.Latitude, 
+                            nearbyLongitude: individual_point.Longitude};
+                    setCloseToUserPoints(placeholderPoint);
+                    console.log(closeToUserPoints);
             }
         }
 
@@ -23,7 +27,7 @@ const CountNearby = (props) => {
     return (
         <div>
             <CurCoord onCurrentCoord = {handlerCurrentCoord} />
-            <p>{close_to_user_points}</p>
+            <p>{closeToUserPoints}</p>
         </div>
         
     );
