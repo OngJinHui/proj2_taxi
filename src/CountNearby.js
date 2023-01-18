@@ -30,12 +30,15 @@ const CountNearby = (props) => {
     return (
         <div>
             <CurCoord onCurrentCoord = {handlerCurrentCoord} />
-            
             <h2>List of nearest available taxis' coordinates</h2>
             <ul>
                 {closeToUserPoints.map((item, index) => <li key={index}>{item.latitude}, {item.longitude}</li>)}
             </ul>
-            <h2>{closeToUserPoints.length} available taxis in the vicinity</h2>
+            {closeToUserPoints.length > 0 &&
+                <h2>
+                There are {closeToUserPoints.length} available taxis in the vicinity.
+                </h2>
+            }
         </div> 
     );
 };
